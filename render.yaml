@@ -1,9 +1,9 @@
-    services:
+services:
   - type: web
-    name: backend
+    name: real-trust-backend
     env: node
-    buildCommand: npm install && npm start
-    startCommand: npm start
+    buildCommand: ""
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
