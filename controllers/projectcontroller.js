@@ -12,8 +12,24 @@ exports.getProjects = async (req, res) => {
 
 exports.createProject = async (req, res) => {
     try {
-        const { name, description, image } = req.body;
-        const newProject = new Project({ name, description, image });
+        const { name, description } = req.body;
+        let imageUrl = "";
+        
+        // If a new image is uploaded, process it with Cloudinary
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                width: 450,
+                height: 350,
+                crop: "fill",
+            });
+            imageUrl = result.secure_url;
+        }
+
+        const newProject = new Project({ 
+            name, 
+            description, 
+            image: imageUrl 
+        });
         await newProject.save();
         res.status(201).json({ message: "Project created successfully" });
     } catch (error) {
