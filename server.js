@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(cors({
     origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://real-trust-frontend-exsq.vercel.app'],
     credentials: true
 }));
+
+// Serve uploaded images statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Mount Modular Routes (Paths exactly match Frontend API calls)
 app.use("/api/projects", require("./routes/projectroutes"));

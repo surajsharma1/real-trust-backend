@@ -1,5 +1,4 @@
 const Project = require("../models/project");
-const cloudinary = require("../config/cloudinary");
 
 exports.getProjects = async (req, res) => {
     try {
@@ -15,14 +14,9 @@ exports.createProject = async (req, res) => {
         const { name, description } = req.body;
         let imageUrl = "";
         
-        // If a new image is uploaded, process it with Cloudinary
+        // If a new image is uploaded, use local file path
         if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                width: 450,
-                height: 350,
-                crop: "fill",
-            });
-            imageUrl = result.secure_url;
+            imageUrl = `/uploads/${req.file.filename}`;
         }
 
         const newProject = new Project({ 

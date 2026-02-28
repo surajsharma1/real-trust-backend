@@ -1,5 +1,4 @@
 const Client = require("../models/client");
-const cloudinary = require("../config/cloudinary");
 
 exports.updateclient = exports.updateClient = async (req, res) => {
     try {
@@ -7,12 +6,7 @@ exports.updateclient = exports.updateClient = async (req, res) => {
         const updateData = { name, designation, description };
         
         if (req.file) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                width: 400,
-                height: 400,
-                crop: "fill",
-            });
-            updateData.image = result.secure_url;
+            updateData.image = `/uploads/${req.file.filename}`;
         }
 
         const client = await Client.findByIdAndUpdate(req.params.id, updateData, { new: true });

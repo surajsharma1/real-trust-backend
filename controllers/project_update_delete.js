@@ -1,19 +1,13 @@
 const Project = require("../models/project");
-const cloudinary = require("../config/cloudinary");
 
 exports.updateproject = exports.updateProject = async (req, res) => {
   try {
     const { name, description } = req.body;
     let updateData = { name, description };
 
-    // If a new image is uploaded, process it
+    // If a new image is uploaded, use local file path
     if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        width: 450,
-        height: 350,
-        crop: "fill",
-      });
-      updateData.image = result.secure_url;
+      updateData.image = `/uploads/${req.file.filename}`;
     }
 
     const project = await Project.findByIdAndUpdate(
