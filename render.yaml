@@ -13,3 +13,7 @@ services:
         value: "658489732655863"
       - key: CLOUD_API_SECRET
         value: 9n2s8Xo7a3l5qj1u9v6w4e2r1t0y8u7
+      - key: JWT_SECRET_KEY
+        value: real_trust_jwt_secret_key_2024
+      - key: mongodb_url
+        value: mongodb+srv://realtrust:realtrust123@realtrustcluster.mongodb.net/real_trust?retryWrites=true&w=majority
