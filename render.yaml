@@ -7,3 +7,9 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: CLOUD_NAME
+        value: fliprtask
+      - key: CLOUD_API_KEY
+        value: "658489732655863"
+      - key: CLOUD_API_SECRET
+        value: 9n2s8Xo7a3l5qj1u9v6w4e2r1t0y8u7
